@@ -1,10 +1,10 @@
 <?php 
 	include"database.class.php";
 	$db = new database();
-	$show = $db->get_profile();
-	//echo "<pre>";
-	//print_r($show);
-	//echo "</pre>";
+	$show = $db->get_user_all();
+	echo "<pre>";
+	print_r($show);
+	echo "</pre>";
 ?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <table class="table table-bordered table-hover table-striped">

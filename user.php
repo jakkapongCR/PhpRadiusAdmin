@@ -1,6 +1,7 @@
 <?php
     include"database.class.php";
     $db = new Database();
+    $user_all = $db->get_user_all();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,59 +64,44 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> โปรไฟล์ทั้งหมด</h3>
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> บัญชีผู้ใช้งานทั้งหมด</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-striped">
                                        <thead>
                                             <tr>
-                                                <th width="5%">ลำดับ</th>
-                                                <th>ชื่อโปรไฟล์</th>
-                                                <th>อัปโหลด</th>
-                                                <th>ดาวน์โหลด</th>
-                                                <th>เส้นทาง</th>
-                                                <th>เวลา</th>
-                                                <th>การจัดการ</th>
+                                                <th width="3%"><center><input type="checkbox" aria-label="..."></center></th>
+                                                <th align="center" width="5%">ลำดับ</th>
+                                                <th width="20%">ชื่อผู้ใช้งาน</th>
+                                                <th width="30%">รายละเอียด</th>
+                                                <th width="27%">กลุ่ม / โปรไฟล์</th>
+                                                <th width="15%">การจัดการ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-
                                                 $i = 1;
-                                                if(!empty($user_top10)){
-                                                    foreach($user_top10 as $user){
+                                                if(!empty($user_all)){
+                                                    foreach($user_all as $userall){
                                             ?>
                                                     <tr>
-                                                        <td><?php echo $i?></td>
-                                                        <td><?php echo $user['username']?></td>
-                                                        <td><?php
-                                                                //echo "echo :" . $user['download'] . "++++";
-                                                                $user_download[] = $db->convert_banwidth($user['download']);
-                                                                echo number_format($user_download[$i-1][0],'2','.','') . " " . $user_download[$i-1][1];
-                                                            ?>
-                                                        </td>
-                                                        <td><?php
-                                                                //echo "echo :" . $user['download'] . "++++";
-                                                                $user_upload[] = $db->convert_banwidth($user['upload']);
-                                                                echo number_format($user_upload[$i-1][0],'2','.','') . " " . $user_upload[$i-1][1];
-                                                            ?>
-                                                        </td>
+                                                        <td align="center"><input type="checkbox" aria-label="..."></td>
+                                                        <td align="center"><?php echo $i?></td>
+                                                        <td><?php echo $userall['username']?></td>
+                                                        <td></td>
+                                                        <td><?php echo $userall['name_group']?></td>
+                                                        <td><span><a class="glyphicon glyphicon-pencil"></a><a class="glyphicon glyphicon-trash"></a></span></td>
                                                     </tr>
-                                                
                                             <?php
                                                     $i++;
                                                     }
                                                 }else{
                                                     echo "<tr><td colspan='5'>ไม่พบข้อมูล</td></tr>";
                                                 }
-                                                
                                             ?>
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">View All Transactions <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>

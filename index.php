@@ -1,7 +1,7 @@
 <?php
     include"database.class.php";
     $db = new Database();
-    $user_all = $db->get_userall();
+    $user_all = $db->get_count_userall();
     $user_online = $db->get_useronline();
     $user_reject = $db->get_userreject();
     $user_top10 = $db->get_top10();
@@ -263,7 +263,6 @@
                                         </thead>
                                         <tbody>
                                             <?php
-
                                                 $i = 1;
                                                 if(!empty($user_top10)){
                                                     foreach($user_top10 as $user){
@@ -284,7 +283,6 @@
                                                             ?>
                                                         </td>
                                                     </tr>
-                                                
                                             <?php
                                                     $i++;
                                                     }

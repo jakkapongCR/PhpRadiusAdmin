@@ -11,7 +11,7 @@ class Database {
 		
 		$mysqli = new mysqli($this->host,$this->user,$this->password,$this->database);
 			
-			//$mysqli->set_charset("utf8");
+			$mysqli->set_charset("utf8");
 
 			//if ($mysqli->connect_error) {
 			if ($mysqli->connect_errno) {
@@ -21,16 +21,31 @@ class Database {
 
 		return $mysqli;
 	}
-	
+	// function แสดงผู้ใช้งานที่มีการดาวน์โหลดเยอะที่สุด
+	public function get_user_all(){
+
+		$db = $this->connect();
+		$sql = "SELECT radcheck.username, radusergroup.name_group FROM radcheck INNER JOIN radusergroup ON radcheck.id_group = radusergroup.id_group GROUP BY radcheck.id DESC";
+		$get_user_all = $db->query($sql);
+
+		while($user_all = $get_user_all->fetch_assoc()){
+			$result[] = $user_all;
+		}
+		
+		if(!empty($result)){
+			return $result;
+		}
+		$db->close();
+	}
 	//function เรื่ยกดูข้อมูลผู้ใช้งทั้งหมด
-	public function get_userall(){
+	public function get_count_userall(){
 		
 		$db = $this->connect();
 		$sql = "SELECT COUNT(username) FROM radcheck";
-		$get_userall = $db->query($sql);
+		$get_count_userall = $db->query($sql);
 
-		//while($user = $get_userall->fetch_assoc()){
-			$result = $get_userall->fetch_assoc();
+		//while($user = $get_count_userall->fetch_assoc()){
+			$result = $get_count_userall->fetch_assoc();
 		//}
 		
 		if(!empty($result)){
